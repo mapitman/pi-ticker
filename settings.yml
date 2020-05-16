@@ -1,0 +1,5 @@
+mqtt:
+    broker: <YOUR MQTT SERVER ADDRESS>
+    port: 1883
+    ttl: 60
+    
