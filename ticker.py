@@ -20,6 +20,7 @@ import unicornhathd
 
 
 def sig_handler(signum, frame):
+    run_ticker("red", "Shutting down")
     unicornhathd.off()
     sys.exit(0)
 
@@ -86,11 +87,14 @@ try:
     port = config["mqtt"]["port"]
     ttl = config["mqtt"]["ttl"]
 
+    run_ticker("green", "Starting up")
+
     client = mqtt.Client()
     client.connect(broker, port, ttl)
     client.on_connect = on_connect
     client.on_message = on_message
     client.loop_start()
+
     while True:
         if RUN_DISPLAY:
             run_ticker(BG_COLOR, TEXT)

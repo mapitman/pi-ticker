@@ -1,4 +1,5 @@
 pyyaml
 unicornhat
-paho
+paho-mqtt
 pillow
+numpy

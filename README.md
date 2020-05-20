@@ -21,4 +21,6 @@ This service requires an MQTT server like [Mosquitto](http://mosquitto.org/). Yo
 
 ![Demo](demo.gif)
 
-There's various ways to make the ticker.py script run when the Pi boots up. Systemd, Docker, auto-login and run the script in the `.bashrc`. For now, I'm using the latter as it's quick and easy. I may dockerize it in the future.
+There's various ways to make the ticker.py script run when the Pi boots up. Systemd, Docker, auto-login and run the script in the `.bashrc`. 
+My preference is to use Docker. I've added a Makefile with build and deploy rules. You'll need to set an environment variable named `TICKER_HOST`
+that will be used to ssh to the Raspberry Pi you've already setup with Docker.
