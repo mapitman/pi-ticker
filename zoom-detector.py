@@ -36,7 +36,7 @@ def sig_handler(signum, frame):
 def isZoomMeetingProcessRunning():
     isProcessFound = False
     for proc in psutil.process_iter():
-        if proc.name().lower() == "cpthost.exe":
+        if proc.name().lower().startswith("cpthost"):
             isProcessFound = True
             break
     return isProcessFound    
