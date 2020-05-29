@@ -35,9 +35,8 @@ def run_ticker(bg_color, text):
     font = ImageFont.truetype(font_file, font_size)
     text_width, text_height = width, 0
     w, h = font.getsize(text)
-    text_width += w + width
     text_height = max(text_height, h)
-    text_width += width + text_x + 1
+    text_width = 2 * width + w
 
     image = Image.new('RGB', (text_width, max(16, text_height)), bg_color)
     draw = ImageDraw.Draw(image)
@@ -100,6 +99,7 @@ try:
             run_ticker(BG_COLOR, TEXT)
         else:
             unicornhathd.off()
+        # time.sleep(0.5)
 
 except KeyboardInterrupt:
     unicornhathd.off()
