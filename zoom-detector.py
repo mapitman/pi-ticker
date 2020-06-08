@@ -42,6 +42,8 @@ def isZoomMeetingProcessRunning():
                 break
         except ProcessLookupError:
             continue
+        except PermissionError:
+            continue
     return isProcessFound    
 
 signal.signal(signal.SIGTERM, sig_handler)
