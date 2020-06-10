@@ -40,30 +40,38 @@ def isZoomMeetingProcessRunning():
             if proc.name().lower().startswith("cpthost"):
                 isProcessFound = True
                 break
-        except ProcessLookupError:
-            continue
-        except PermissionError:
+        except Exception as e:
+            print(f"Caught {e}")
             continue
     return isProcessFound    
+
+def publish_message(message):
+    payload = json.dumps(message)
+    client = mqtt.Client()
+    client.connect(broker, port, ttl)
+    client.publish("/ticker1", payload)
 
 signal.signal(signal.SIGTERM, sig_handler)
 
 try:
+    firstRun = True
+    previouslyFoundZoomMeeting = False
+    print("Monitoring for Zoom meeting...")
     while True:
         isMeetingInProgress = isZoomMeetingProcessRunning()
-        message = {}
-        if isMeetingInProgress:
+        if (firstRun or not previouslyFoundZoomMeeting) and isMeetingInProgress:
+            previouslyFoundZoomMeeting = True
+            message = {}
             message["bg_color"] = "red"
             message["text"] = on_a_call
-        else:
+            publish_message(message)
+        elif (firstRun or previouslyFoundZoomMeeting) and not isMeetingInProgress:
+            previouslyFoundZoomMeeting = False
+            message = {}
             message["bg_color"] = "navy"
             message["text"] = working
-
-        print(f"Zoom meeting in progress? {isMeetingInProgress}")
-        payload = json.dumps(message)
-        client = mqtt.Client()
-        client.connect(broker, port, ttl)
-        client.publish("/ticker1", payload)
+            publish_message(message)
+        
         time.sleep(10)
 
 except KeyboardInterrupt:
