@@ -60,18 +60,20 @@ try:
     while True:
         isMeetingInProgress = isZoomMeetingProcessRunning()
         if (firstRun or not previouslyFoundZoomMeeting) and isMeetingInProgress:
+            firstRun = False
             previouslyFoundZoomMeeting = True
             message = {}
             message["bg_color"] = "red"
             message["text"] = on_a_call
             publish_message(message)
         elif (firstRun or previouslyFoundZoomMeeting) and not isMeetingInProgress:
+            firstRun = False
             previouslyFoundZoomMeeting = False
             message = {}
             message["bg_color"] = "navy"
             message["text"] = working
             publish_message(message)
-        
+
         time.sleep(10)
 
 except KeyboardInterrupt:
