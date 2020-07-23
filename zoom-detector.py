@@ -40,7 +40,7 @@ def isZoomMeetingProcessRunning():
             if proc.name().lower().startswith("cpthost"):
                 isProcessFound = True
                 break
-        except (ProcessLookupError, PermissionError, psutil.NoSuchProcess) as e:
+        except (ProcessLookupError, PermissionError, psutil.NoSuchProcess, MemoryError) as e:
             print(f"Caught {e}")
             continue
     return isProcessFound    
