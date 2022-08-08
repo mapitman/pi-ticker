@@ -43,7 +43,7 @@ def isZoomMeetingProcessRunning():
         except (ProcessLookupError, PermissionError, psutil.NoSuchProcess, MemoryError) as e:
             print(f"Caught {e}")
             continue
-    return isProcessFound    
+    return isProcessFound
 
 def publish_message(message):
     payload = json.dumps(message)
@@ -56,7 +56,12 @@ signal.signal(signal.SIGTERM, sig_handler)
 try:
     firstRun = True
     previouslyFoundZoomMeeting = False
-    print("Monitoring for Zoom meeting...")
+    message = {}
+    message["bg_color"] = "green"
+    message["text"] = "Monitoring for Zoom meeting..."
+    publish_message(message)
+    print(message["text"])
+    time.sleep(5)
     while True:
         isMeetingInProgress = isZoomMeetingProcessRunning()
         if (firstRun or not previouslyFoundZoomMeeting) and isMeetingInProgress:
@@ -69,13 +74,10 @@ try:
         elif (firstRun or previouslyFoundZoomMeeting) and not isMeetingInProgress:
             firstRun = False
             previouslyFoundZoomMeeting = False
-            message = {}
-            message["bg_color"] = "navy"
-            message["text"] = working
-            publish_message(message)
+            clearTicker()
 
         time.sleep(10)
 
 except KeyboardInterrupt:
         clearTicker()
-        sys.exit()    
+        sys.exit()

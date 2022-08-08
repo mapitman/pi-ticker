@@ -18,6 +18,7 @@ on_a_call = "On a Call..."
 working = "Working..."
 free = "Free..."
 stop = "Clear the ticker"
+holiday = "Happy Valentine's Day!!!"
 
 
 while True:
@@ -25,6 +26,7 @@ while True:
     print(f"1: {on_a_call}")
     print(f"2: {working}")
     print(f"3: {free}")
+    print(f"4: {holiday}")
     print(f"C: {stop}")
     print("Q: Quit")
     print()
@@ -43,6 +45,9 @@ while True:
     elif user_input == "3":
         message["bg_color"] = "green"
         message["text"] = free
+    elif user_input == "4":
+        message["bg_color"] = "red"
+        message["text"] = holiday
     elif user_input == "c" or user_input == "C":
         message["command"] = "stop"
     elif user_input == "q" or user_input == "Q":

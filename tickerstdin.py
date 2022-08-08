@@ -7,6 +7,7 @@ import yaml
 from os import system
 import re
 
+sys.stdout.write("\x1b]2;zoomdetector\x07")
 
 with open("settings.yml", "r") as ymlfile:
     config = yaml.load(ymlfile, Loader=yaml.FullLoader)
