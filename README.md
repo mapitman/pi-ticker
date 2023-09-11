@@ -20,6 +20,7 @@ ticker message accordingly.
 
 This service requires an MQTT server like [Mosquitto](http://mosquitto.org/). You can run it on the Raspberry Pi itself or on another computer you have on your network.
 
+Be sure to enable SPI in `raspi-config` on the Raspberry PI.
 
 ![Demo](demo.gif)
 

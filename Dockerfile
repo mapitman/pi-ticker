@@ -1,6 +1,6 @@
 FROM mapitman/python-arm:latest
 
-RUN apk add --update --no-cache gcc python3-dev linux-headers musl-dev && pip3 install unicornhathd && apk del gcc python3-dev linux-headers musl-dev
+RUN apk add --update --no-cache gcc python3-dev linux-headers musl-dev && pip3 install unicornhathd spidev && pip3 install --upgrade setuptools && apk del gcc python3-dev linux-headers musl-dev
 
 WORKDIR /app
 COPY DejaVuSans-Bold.ttf /app
